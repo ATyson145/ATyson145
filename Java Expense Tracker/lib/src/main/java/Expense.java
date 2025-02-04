@@ -6,6 +6,8 @@ public class Expense {
     private double amount;
     private String description;
 
+    public Expense() {}
+
     public Expense(Date date, double amount, String description) {
         this.date = date;
         this.amount = amount;

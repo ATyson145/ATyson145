@@ -1,13 +1,13 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+
 public class ExpenseTrackerCLI {
     private static Scanner scanner = new Scanner(System.in);
-    private static List<Expense> expenses = new ArrayList<>();
+    private static ExpenseTracker expenseTracker = new ExpenseTracker("expenses.json");
 
     public static void main(String[] args) {
         boolean running = true;
@@ -41,15 +41,6 @@ public class ExpenseTrackerCLI {
     private static void addExpense() {
         System.out.print("Enter the date (MM/DD/YYYY): ");
         String dateString = scanner.nextLine();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        Date date = null;
-        try {
-            date = dateFormat.parse(dateString);
-        }
-        catch (ParseException e) {
-            System.out.println("Invalid date format. Please use MM/DD/YYYY.");
-            return;
-        }
 
         System.out.println("Enter the amount: $");
         double amount = scanner.nextDouble();
@@ -58,12 +49,16 @@ public class ExpenseTrackerCLI {
         System.out.print("Enter the description: ");
         String description = scanner.nextLine();
 
+        Date date = parseDate(dateString);
+
         Expense expense = new Expense(date, amount, description);
-        expenses.add(expense);
-        System.out.println("Expense added successfully!");
+
+        expenseTracker.addExpense(expense);
     }
 
     private static void viewExpenses() {
+        List<Expense> expenses = expenseTracker.getExpenses();
+
         if (expenses.isEmpty()) {
             System.out.println("No expenses to display.");
             return;
@@ -71,6 +66,17 @@ public class ExpenseTrackerCLI {
         System.out.println("List of expenses: ");
         for (Expense expense : expenses) {
             System.out.println(expense);
+        }
+    }
+
+    private static Date parseDate(String dateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        try {
+            return dateFormat.parse(dateString);
+        }
+        catch (ParseException e) {
+            System.out.println("Invalid date format. Please use MM/DD/YYYY.");
+            return null;
         }
     }
 }
