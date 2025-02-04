@@ -1,19 +1,28 @@
 -module(sudoku).
--export([solve/1, print_board/1, generate_empty_board/0, generate_partial_board/1, insert_value/4, parse_board/1]).
+-export([
+    solve/1,
+    print_board/1,
+    generate_empty_board/0,
+    generate_partial_board/1,
+    insert_value/4,
+    parse_board/1
+]).
 
 % Main function to solve the Sudoku puzzle
 solve(Board) when is_list(Board) ->
     case find_empty(Board) of
-        false -> 
+        false ->
             io:format("Solved Board:~n"),
-            print_board(Board),
-            Board; % Return the solved board
-        {Row, Col} -> 
-            try_numbers(Board, Row, Col) % Try numbers for the empty cell
+            % Return the solved board
+            Board;
+        {Row, Col} ->
+            % Try numbers for the empty cell
+            try_numbers(Board, Row, Col)
     end;
 solve(BoardString) when is_binary(BoardString) ->
     Board = parse_board(BoardString),
-    solve(Board). % Parse the board string and solve
+    % Parse the board string and solve
+    solve(Board).
 
 % Try numbers 1 to 9 for the given cell
 try_numbers(Board, Row, Col) ->
@@ -32,11 +41,14 @@ if_valid_try_numbers(Board, Row, Col, N, Rest) ->
             NewBoard = set_number(Board, Row, Col, N),
             SolvedBoard = solve(NewBoard),
             case SolvedBoard of
-                false -> try_numbers(Board, Row, Col, Rest); % Try next number if not solved
-                _ -> SolvedBoard % Return solved board
+                % Try next number if not solved
+                false -> try_numbers(Board, Row, Col, Rest);
+                % Return solved board
+                _ -> SolvedBoard
             end;
         false ->
-            try_numbers(Board, Row, Col, Rest) % Try next number
+            % Try next number
+            try_numbers(Board, Row, Col, Rest)
     end.
 
 % Check if placing Num at (Row, Col) is valid
@@ -53,15 +65,18 @@ is_valid(Board, Row, Col, Num) when Num > 0, Num =< 9 ->
 get_subgrid(Board, Row, Col) ->
     StartRow = 3 * ((Row - 1) div 3) + 1,
     StartCol = 3 * ((Col - 1) div 3) + 1,
-    [lists:nth(StartCol + C, lists:nth(StartRow + R, Board))
-     || R <- [0, 1, 2], C <- [0, 1, 2]].
+    [
+        lists:nth(StartCol + C, lists:nth(StartRow + R, Board))
+     || R <- [0, 1, 2], C <- [0, 1, 2]
+    ].
 
 % Find the next empty cell
 find_empty(Board) ->
     find_empty(Board, 1).
 
 % Recursive helper to find empty cell
-find_empty([], _) -> false;
+find_empty([], _) ->
+    false;
 find_empty([Row | Rest], RowIndex) ->
     case find_empty_in_row(Row, 1) of
         false -> find_empty(Rest, RowIndex + 1);
@@ -98,7 +113,8 @@ generate_partial_board(N) ->
     populate_board(Board, N).
 
 % Populate the board with N random numbers
-populate_board(Board, 0) -> Board;
+populate_board(Board, 0) ->
+    Board;
 populate_board(Board, N) ->
     Row = rand:uniform(9),
     Col = rand:uniform(9),
