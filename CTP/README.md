@@ -32,6 +32,6 @@ To recreate the development environment, you need the following software and/or 
 
 The following items I plan to fix, improve, and/or add to this project in the future:
 
-- [ ] Improve OCR accuraacy by experimenting with different preprocessing techniques.
-- [ ] Train a custom OCR model in order to better recognize different styles of writing.
-- [ ] Add support for additional languages.
+- [ Improve OCR accuraacy by experimenting with different preprocessing techniques. ]
+- [ Train a custom OCR model in order to better recognize different styles of writing. ]
+- [ Add support for additional languages. ]

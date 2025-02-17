@@ -12,14 +12,11 @@ I plan on making it so that the program solves sudoku puzzles that either the pr
 Steps to build and/or run the software:
 
 1. Make sure to be inside the src folder of this project before starting.
-2. Type erl into the terminal
+2. Type erl into the terminal to open the Erlang shell
 3. Access the sudoku program by typing c(sudoku).
-
-Instructions for using the software:
-
-1. When in the program, you can either generate a new sudoku board and insert values one at a time, or you can type a string into the erlang shell and have the solve function solve the line of numbers.
-2. Make sure when you are typing the string that you start at the upper left corner of the puzzle, then type as though you were reading a book (from left to right, down a line when you reach the end). There should be 81 numbers in total.
-3. Use the solve function to print out a visual of the completed sudoku puzzle.
+4. Choose to either input the numbers of the Sudoku puzzle as a binary input or create a new puzzle (of which
+   you can create a new, empty puzzle or input numbers into the puzzle).
+5. Input either the partially filled puzzle or the binary numbers into the solve funciton.
 
 ## Development Environment
 
@@ -28,18 +25,10 @@ To recreate the development environment, you need the following software and/or 
 - Download Erlang (either on their website or using another tool (I used homebrew))
 - Download Visual Studio Code
 
-## Useful Websites to Learn More
-
-I found these websites useful in developing this software:
-
-- [tutorialspoint](https://www.tutorialspoint.com/erlang/index.htm)
-- [YouTube](https://www.youtube.com/)
-- [Erlang](https://www.erlang.org/doc/readme.html)
-
 ## Future Work
 
 The following items I plan to fix, improve, and/or add to this project in the future:
 
-- [ ] I want to add a GUI that helps make the suduko input faster for the user.
-- [ ] I want to make the solver into a game, having the solver as a bonus for the user to use when they get stuck.
-- [ ] I wast to improve the performance of harder puzzles for the program.
+- [ I want to add a GUI that helps make the suduko input faster for the user. ]
+- [ I want to make the solver into a game, having the solver as a bonus for the user to use when they get stuck. ]
+- [ I wast to improve the performance of harder puzzles for the program. ]
